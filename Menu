@@ -1,0 +1,181 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+#include <locale.h>
+//definindo abaixo o tamanho do vetor do número binário
+#define TAM 40  
+
+main(void)
+{
+    setlocale(LC_ALL, "Portuguese"); //função responsável pela escrita dos textos em pt-br
+    char op, bin, dec, teste, conversao, jogo, sexo; system("color 70"); //para ter a experiencia de cor, use alguma IDE que compile no DOS
+    float num1, num2, soma, sub, contr = 0;      
+    int contP, media, primo, cont, idade, aleatorio, numusuario, numrepeticoes, numconvert, x, pessoas, a = 0, b, c, numP, j,contPessoa, temp, numBin, numDec = 0, base = 1, resto,mediaM, mediaF, contF, contM, sexoM, sexoF, contIdade, numeroDecimal, binario[TAM], aux;
+    
+    do
+    {
+        printf("\n1. Soma");
+        printf("\n2. Subtração");
+        printf("\n3. Jogo de Adivinhação");
+        printf("\n4. Faixa etária");
+        printf("\n5. Números primos");
+        printf("\n6. Mudança de base");
+        printf("\n7. Sair\n");
+        scanf("%s", &jogo);
+        switch (jogo)
+        {
+        case '1': // opção 1, operação de soma
+        {
+            printf("Digite o primeiro número: ");
+            scanf("%f", &num1);
+            printf("Digite o segundo número: ");
+            scanf("%f", &num2);
+            soma = num1 + num2;
+            printf("\nO resultado da soma é: %0.2f ", soma);
+            break;
+        }
+        case '2': // opção 2, operação de subtração
+        {
+            printf("\nDigite o primeiro numero: ");
+            scanf("%f", &num1);
+            printf("\nDigite o segundo numero: ");
+            scanf("%f",&num2);
+            sub = num1 - num2;
+            printf("\nO resultado da  subtração é: %0.2f", sub);
+            break;
+        }
+        case '3': // opção 3, jogo da adivinhação
+        {
+            aleatorio = rand() % 100;
+            numusuario = 101;
+            while (aleatorio != numusuario) //enquanto o aleatório for diferente, vai repetir o laço. Ele se encerra quando vc acerta
+            {
+                printf("\nDigite um número de 0 a 100 e tente adivinhar o número aleatório: ");
+                scanf("%i", &numusuario);
+                if (numusuario < aleatorio)
+                {
+                    printf("\nO número eh maior do que o numero digitado");
+                }
+                else if (numusuario > aleatorio)
+                {
+                    printf("\nO número eh menor do que o numero digitado");
+                }
+                else
+                {
+                    printf("\nParabéns, você acertou!!");
+                }
+            }
+            break;
+        }
+        case '4': // opção 4, faixa etária
+        {
+            printf("Digite a quantidade de pessoas: ");
+            scanf("%d", &pessoas);
+            for (cont = 1; cont <= pessoas; cont++) //for responsável por controlar e contar a quantidade de pessoas
+            {
+                printf("informe a idade da %dº pessoa \n", cont);
+                scanf("%d", &idade);
+                contIdade = contIdade + idade;
+                contPessoa++;
+                printf("\nInforme o sexo da %dº pessoa: ", cont);
+                printf("\nOpção 1 para Masculino \nOpção 2 para feminino\n");
+                scanf("%d", &sexo);
+                switch (sexo)
+                {
+                case 1:
+                    sexoM = sexoM + idade;
+                    contM = contM + 1;
+                    break;
+
+                case 2:
+                    sexoF = sexoF + idade;
+                    contF = contF + 1;
+                    break;
+                }
+            }
+            media = contIdade / contPessoa;
+            mediaM = sexoM / contM;
+            mediaF = sexoF / contF;
+            printf("\n a media da idade das pessoas é %d", media);
+            printf("\n a media da idade das pessoas do sexo masculino é %d", mediaM);
+            printf("\n a media da idade das pessoas do sexo feminino é %d", mediaF);
+            break;
+        }
+        case '5': // opção 5, números primos
+        {
+            printf("Digite a quantidade de números primos: ");
+            scanf("%d", &numP);
+            j = numP * (-1);
+            do
+            {
+                a++;
+                c = 0;
+                for (contP = 1; contP < a; contP++)
+                    if (a % contP == 0)
+                        c++;
+                if (c == 1)
+                {
+                    printf("%i\n", a); // imprime os números primos
+                    j++;
+                    soma = soma + contP;
+                }
+            } while (j); 
+            printf("a soma dos números primos existentes entre 1 e %d é %0.2f\n", numP, soma);
+            break;
+        }
+        case '6':  // opção 6, mudança de base        
+            printf("\nD. Decimal para Binário");   // opção que o usuário vai escolher para converter as bases
+            printf("\nB. Binario para Decimal\n"); // opção que o usuário vai escolher para converter as bases
+            scanf("%s", &conversao);
+            switch (conversao)
+            {
+            case 'D': case 'd':
+                printf("A opção escolihda foi a de decimal para binário\n ");
+                printf("Digite um numero em decimal : ");
+                scanf("%d", &numeroDecimal);
+                printf("%d É equivalente a\n",numeroDecimal);
+                for (aux = TAM - 1; aux >= 0; aux--)
+                {
+                    binario[aux] = (numeroDecimal % 2) == 0 ? 0 : 1;
+                    numeroDecimal = numeroDecimal / 2;
+                }
+                
+               printf(" ");              
+                for (aux = 0; aux < TAM; aux++)
+                {
+                    printf("%d", binario[aux]);
+                    if ((aux % 4) == 0)
+                        printf(" ");
+                }
+                break;
+            
+            case 'B': case 'b':
+                printf("A opção escolihda foi a de binário para decimal\n");
+                printf("Digite um numero em binário:\n");
+                scanf("%d", &numBin);
+                temp = numBin;
+                while (temp > 0)
+                {
+                    resto = temp % 10;
+                    numDec = numDec + resto * base;
+                    temp /= 10;
+                    base *= 2;
+                }
+                printf("%d é Equivalente a %d em Decimal", numBin, numDec);
+                break;
+            }
+            break;
+        case '7': // opção 7, sair do menu
+        {
+            printf("\n\t\t\t\t\tVoce escolheu sair ");
+            printf("\n\t\t\t\tO jogo será encerrado! ");
+            printf("\n\t\t\t\t\t\t q(❂‿❂)p");
+            break;
+        }
+        default: //caso o usuário digite a opção errada, imprime o print abaixo.
+            printf("\n\n\tOpção inválida!");
+        }
+    } while (jogo != '7');
+    return 0;
+}
