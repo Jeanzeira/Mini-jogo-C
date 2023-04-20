@@ -4,6 +4,8 @@
 #include <string.h>
 #include <locale.h>
 //definindo abaixo o tamanho do vetor do número binário
+
+//definindo abaixo o tamanho do vetor do número binário
 #define TAM 40  
 
 main(void)
@@ -15,6 +17,7 @@ main(void)
     
     do
     {
+        printf("\n1. Soma");
         printf("\n1. Soma");
         printf("\n2. Subtração");
         printf("\n3. Jogo de Adivinhação");
